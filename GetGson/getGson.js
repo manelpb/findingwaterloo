@@ -44,14 +44,32 @@ $( document ).ready(function() {
     });
 
 
-var discoverAPI = "http://api.openweathermap.org/data/2.5/forecast/city?id=6167865&APPID=f2cab325db52e7429c3cee3965c9c0b3"
-$.getJSON( discoverAPI, function() {
-  console.log( "success on access command" );
-})
-  .done(function(data) {
-    for (var i in data.city) {
-        console.log(data.city[i])
-    }
+    //Title, description, image, geolocation, comments, popularity, type, custom pin icon
+    //const SPOT_TYPE=
+
+
+
+    //fentch data from API
+    var output2 = "<ul>";
+    var discoverAPI = "http://api.openweathermap.org/data/2.5/forecast/city?id=6167865&APPID=f2cab325db52e7429c3cee3965c9c0b3"
+    var discoverApii = "http://172.31.11.163/findingwaterloo/index.php/api/things"
+    $.getJSON( discoverAPI, function() {
+      console.log( "success on access command" );
+    })
+     /* .done(function(data) {
+        for (var i in data.list) {
+            console.log(data.list[i])
+        }*/
+
+     .done(function(data) {
+        for (var i in data.list) {
+            output2 += "<li>" + data.list[i].main.temp+"</li>";
+            console.log(data.list[i])
+        }
+       /* for (var i in data) {
+            console.log(data[i])
+        }*/
+
 
     /* $.each( data.items, function( i, item ) {
         //$( "<img>" ).attr( "src", item.media.m ).appendTo( "#images" );
@@ -61,14 +79,20 @@ $.getJSON( discoverAPI, function() {
         }
       });*/
 
-    console.log( "second success" );
-  })
-  .fail(function() {
-    console.log( "error" );
-  })
-  .always(function() {
-    console.log( "complete" );
-  });
+        console.log( "second success" );
+      })
+      .fail(function() {
+        console.log( "error" );
+      })
+      .always(function() {
+        console.log( "complete" );
+      });
+
+
+    $( "#target2" ).click(function() {
+    //alert( "Handler for .click() called." );
+        document.getElementById("placeholder").innerHTML = output2;
+    });
 
 
 
@@ -97,7 +121,7 @@ jqxhr.complete(function() {
 
 //load Flicker API
 
-(function() {
+/*(function() {
   var flickerAPI = "http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?";
   $.getJSON( flickerAPI, {
     tags: "mount rainier",
@@ -112,7 +136,7 @@ jqxhr.complete(function() {
         }
       });
     });
-})();
+})();*/
 
 
 
