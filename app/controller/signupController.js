@@ -8,7 +8,6 @@ app.controller('signupController', ['$scope', '$location', '$timeout', 'authServ
 
     $scope.IsNextDisabled = true;
 
-    //$scope.paymentForm.$invalid = true;
 
     $scope.registration = {
         userName: "",
