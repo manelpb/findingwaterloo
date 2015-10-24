@@ -71,7 +71,6 @@ app.config(function ($routeProvider) {
 });
 
 var serviceBase = 'http://localhost:58077/';
-//var serviceBase = 'http://volleyballauth.azurewebsites.net/';
 app.constant('ngAuthSettings', {
     apiServiceBaseUri: serviceBase,
     clientId: 'FindingWaterlooApp'
