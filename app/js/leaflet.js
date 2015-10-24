@@ -9,6 +9,8 @@ function Initialize() {
     map = L.mapbox.map('map', 'mapbox.streets')
         .setView([43.4822754, -80.5818245], zoomLevel);
     getCurrentLocation();
+    var string = navigator.userAgent;
+    map.on('locationfound', onLocationFound);
 
 };
 
@@ -18,15 +20,28 @@ function displayMap(position) {
 
 function getCurrentLocation() {
 
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(displayMap);
-    } else {
-        x.innerHTML = "Geolocation is not supported by this browser.";
-    }
+    map.locate({setView: true, maxZoom: 16});
 
 
-
+//    if (navigator.geolocation) {
+//        navigator.geolocation.getCurrentPosition(displayMap);
+//    } else {
+//        x.innerHTML = "Geolocation is not supported by this browser.";
+//    }
 };
+
+function onLocationFound(e) {
+    var radius = e.accuracy / 2;
+
+    L.marker(e.latlng).addTo(map)
+        .bindPopup("You are within " + radius + " meters from this point").openPopup();
+
+    L.circle(e.latlng, radius).addTo(map);
+};
+
+
+
+
 
 function createIcon() {
 
