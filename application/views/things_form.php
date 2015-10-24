@@ -1,5 +1,5 @@
 <h2 style="margin-top:0px">Things <?php echo $button ?></h2>
-<form action="<?php echo $action; ?>" method="post">
+<?php echo form_open_multipart($action);?>
     <div class="form-group">
         <label for="varchar">title <?php echo form_error('thg_title') ?></label>
         <input type="text" class="form-control" name="thg_title" id="thg_title" placeholder="title" value="<?php echo $thg_title; ?>" />
@@ -10,16 +10,12 @@
     </div>
     <div class="form-group">
         <label for="varchar">image <?php echo form_error('tgh_image') ?></label>
-        
+
         <?php echo form_upload("tgh_image", null, "class='form-control'") ?>
-        
-        <?php if($tgh_image): ?>
+
+        <?php if ($tgh_image): ?>
             <?php echo $tgh_image; ?>
         <?php endif; ?>
-    </div>
-    <div class="form-group">
-        <label for="varchar">geo <?php echo form_error('tgh_geo') ?></label>
-        <input type="text" class="form-control" name="tgh_geo" id="tgh_geo" placeholder="geo" value="<?php echo $tgh_geo; ?>" />
     </div>
     <div class="form-group">
         <label for="varchar">address <?php echo form_error('tgh_address') ?></label>

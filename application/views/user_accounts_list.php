@@ -1,7 +1,7 @@
 
         <div class="row" style="margin-bottom: 10px">
             <div class="col-md-4">
-                <h2 style="margin-top:0px">Things List</h2>
+                <h2 style="margin-top:0px">User_accounts List</h2>
             </div>
             <div class="col-md-4 text-center">
                 <div style="margin-top: 4px"  id="message">
@@ -9,41 +9,37 @@
                 </div>
             </div>
             <div class="col-md-4 text-right">
-                <?php echo anchor(site_url('things/create'), 'Create', 'class="btn btn-primary"'); ?>
+                <?php echo anchor(site_url('user_accounts/create'), 'Create', 'class="btn btn-primary"'); ?>
 	    </div>
         </div>
         <table class="table table-bordered table-striped" id="mytable">
             <thead>
                 <tr>
                     <th>No</th>
-		    <th>title</th>
-		    <th>address</th>
-		    <th>popularity</th>
-		    <th>tty</th>
-		    <th>created</th>
+		    <th>email</th>
+		    <th>username</th>
+		    <th>created_date</th>
 		    <th>Action</th>
                 </tr>
             </thead>
 	    <tbody>
             <?php
             $start = 0;
-            foreach ($things_data as $things)
+            foreach ($user_accounts_data as $user_accounts)
             {
                 ?>
                 <tr>
 		    <td><?php echo ++$start ?></td>
-		    <td><?php echo $things->thg_title ?></td>
-		    <td><?php echo $things->tgh_address ?></td>
-		    <td><?php echo $things->tgh_popularity ?></td>
-		    <td><?php echo $things->tty_title ?></td>
-		    <td><?php echo $things->tgh_created_at ?></td>
+		    <td><?php echo $user_accounts->uacc_email ?></td>
+		    <td><?php echo $user_accounts->uacc_username ?></td>
+		    <td><?php echo $user_accounts->uacc_date_added ?></td>
 		    <td style="text-align:center">
 			<?php 
-			echo anchor(site_url('things/read/'.$things->thg_id),'Read'); 
+			echo anchor(site_url('user_accounts/read/'.$user_accounts->uacc_id),'Read'); 
 			echo ' | '; 
-			echo anchor(site_url('things/update/'.$things->thg_id),'Update'); 
+			echo anchor(site_url('user_accounts/update/'.$user_accounts->uacc_id),'Update'); 
 			echo ' | '; 
-			echo anchor(site_url('things/delete/'.$things->thg_id),'Delete','onclick="javasciprt: return confirm(\'Are You Sure ?\')"'); 
+			echo anchor(site_url('user_accounts/delete/'.$user_accounts->uacc_id),'Delete','onclick="javasciprt: return confirm(\'Are You Sure ?\')"'); 
 			?>
 		    </td>
 	        </tr>

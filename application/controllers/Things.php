@@ -9,6 +9,12 @@ class Things extends CI_Controller
     {
         parent::__construct();
         
+        $config['upload_path'] = './uploads/';
+        $config['allowed_types'] = 'gif|jpg|png|jpeg';
+        $config['max_size'] = '1000';
+
+        $this->load->library('upload', $config);
+        
         $this->load->helper('date');
         $this->load->helper('geolocation');
         $this->load->model('things_model');
@@ -87,7 +93,12 @@ class Things extends CI_Controller
 		'tgh_created_at' => date("Y-m-d H:i:s", time()),
 	    );
             
-            if($geo_location) { 
+            if ($this->upload->do_upload("tgh_image")) {
+                $uploadData = $this->upload->data();            
+                $data['tgh_image'] = $uploadData['file_name'];
+            } 
+            
+            if(isset($geo_location) && $geo_location) {  
                 $data['tgh_geo'] = serialize($geo_location['geometry']);
                 $data['tgh_address'] = $geo_location['address'];
             }
@@ -103,6 +114,7 @@ class Things extends CI_Controller
         $row = $this->things_model->get_by_id($id);
 
         if ($row) {
+            
             $data = array(
                 'button' => 'Update',
                 'action' => site_url('things/update_action'),
@@ -130,15 +142,27 @@ class Things extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $this->update($this->input->post('thg_id', TRUE));
         } else {
+            
+            if($this->input->post('tgh_address',TRUE))
+                $geo_location = get_geolocation($this->input->post('tgh_address',TRUE));
+            
             $data = array(
 		'thg_title' => $this->input->post('thg_title',TRUE),
 		'tgh_description' => $this->input->post('tgh_description',TRUE),
-		'tgh_image' => $this->input->post('tgh_image',TRUE),
-		'tgh_geo' => $this->input->post('tgh_geo',TRUE),
 		'tgh_address' => $this->input->post('tgh_address',TRUE),
 		'tgh_popularity' => $this->input->post('tgh_popularity',TRUE),
 		'tgh_tty_id' => $this->input->post('tgh_tty_id',TRUE),
-	    );
+	    );            
+            
+            if ($this->upload->do_upload("tgh_image")) {
+                $uploadData = $this->upload->data();            
+                $data['tgh_image'] = $uploadData['file_name'];
+            } 
+            
+            if(isset($geo_location) && $geo_location) { 
+                $data['tgh_geo'] = serialize($geo_location['geometry']);
+                $data['tgh_address'] = $geo_location['address'];
+            }
 
             $this->things_model->update($this->input->post('thg_id', TRUE), $data);
             $this->session->set_flashdata('message', 'Update Record Success');

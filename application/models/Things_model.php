@@ -19,6 +19,7 @@ class Things_model extends CI_Model
     function get_all()
     {
         $this->db->order_by($this->id, $this->order);
+        $this->db->join('thing_types', 'tty_id = tgh_tty_id');
         return $this->db->get($this->table)->result();
     }
 

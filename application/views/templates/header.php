@@ -29,6 +29,9 @@
             <li>
                 <?php echo anchor(site_url('thing_types'), 'Thing Types'); ?>
             </li>
+            <li>
+                <?php echo anchor(site_url('user_accounts'), 'Users'); ?>
+            </li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>

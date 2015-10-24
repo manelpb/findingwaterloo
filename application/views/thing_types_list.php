@@ -30,7 +30,11 @@
                 <tr>
 		    <td><?php echo ++$start ?></td>
 		    <td><?php echo $thing_types->tty_title ?></td>
-		    <td><?php echo $thing_types->tty_icon ?></td>
+		    <td>
+                        <?php if($thing_types->tty_icon) :?>
+                        <img src="<?php echo base_url('uploads/'.$thing_types->tty_icon) ?>" width="32" />
+                        <?php endif;?>
+                    </td>
 		    <td style="text-align:center">
 			<?php 
 			echo anchor(site_url('thing_types/read/'.$thing_types->tty_id),'Read'); 
