@@ -1,6 +1,14 @@
 var map = '';
 var zoomLevel = 13;
-
+const INTERVAL = 0.000060;
+var info;
+var lati;
+var longti;
+var title;
+var discription;
+var address;
+var created;
+var icon;
 function Initialize() {
 
 
@@ -30,14 +38,82 @@ function getCurrentLocation() {
 //    }
 };
 
+//shot the info on the screen
 function onLocationFound(e) {
-    var radius = e.accuracy / 2;
 
-    L.marker(e.latlng).addTo(map)
-        .bindPopup("You are within " + radius + " meters from this point").openPopup();
+    getJson(e);
 
-    L.circle(e.latlng, radius).addTo(map);
 };
+
+
+
+//get information from Gson data
+function getJson(e){
+
+
+
+    var discoverApii = "http://172.31.11.163/findingwaterloo/index.php/api/things"
+    info = $.getJSON( discoverApii, function() {
+      console.log( "success on access command" );
+    })
+     /* .done(function(data) {
+        for (var i in data.list) {
+            console.log(data.list[i])
+        }*/
+
+     .done(function(data) {
+        //console.log(data);
+        for (var i in data) {
+            //output2 += "<li>" + data[i].thgh_geo.location.lat"</li>";
+            lati = (data[i]. tgh_geo. location.lat);
+            longti = (data[i]. tgh_geo. location.lng);
+            /*if (lati+INTERVAL>e.latitude || lati-INTERVAL<lat)&&(longti+INTERVAAL>e.longitude || longti < e.longitude )
+                {
+
+                }*/
+            title = data[i].thg_title;
+            discription= data[i].tgh_description;
+            address = data[i].tgh_address;
+            created = data[i].tgh_created_at;
+            icon = data[i].tty_icon;
+
+            console.log(title+"disc   "+discription+"addr  "+address+"create    "+created+"  icon "+icon);
+
+            var radius = e.accuracy / 2;
+
+        L.marker(e.latlng).addTo(map)
+        //.bindPopup("You are within " + radius + " meters from this point"+).openPopup();
+        .bindPopup("Name: " + title +"\n" + "Descripstion" + discription + "\n"+"Address "+ address + "Created " + created).openPopup();
+        L.circle(e.latlng, radius).addTo(map);
+
+            //return[title, discription, address, created];
+
+
+
+        }
+
+
+        console.log( "second success" );
+      })
+      .fail(function() {
+        console.log( "error" );
+      })
+
+
+
+   /*
+    console.log(title+"disc   "+discription+"addr  "+address+"create    "+created);
+
+        return info;
+         */
+
+
+
+
+
+};
+
+
 
 
 

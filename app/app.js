@@ -35,6 +35,11 @@ app.config(function ($routeProvider) {
 
     });
 
+   $routeProvider.when("/mapView", {
+       controller: "mapViewController",
+       templateUrl: "/app/views/mapView.html"
+    });
+
     $routeProvider.when("/associate", {
         controller: "associateController",
         templateUrl: "/app/views/associate.html"
