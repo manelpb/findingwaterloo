@@ -1,6 +1,7 @@
 var map = '';
 var zoomLevel = 13;
-
+var LAT;
+var LNG;
 var formHTML = "<form action=''><input type='text' value='test' /> <input type='button' /> </form>";
 
 'use strict';
@@ -42,8 +43,6 @@ app.controller('mapViewController', ['$scope', 'authService', '$location', 'plac
            });
 
        };*/
-
-
     //current City Coords are limited to waterloo (the cityCoords is not being populated)
     function settingCityBoundary(cityCoords) {
         // Construct a bounding box for this map that the user cannot
@@ -152,6 +151,8 @@ app.controller('mapViewController', ['$scope', 'authService', '$location', 'plac
     };
 
     function onLocationFound(e) {
+        LAT = e.latitude;
+        LNG = e.longitude;
         var radius = e.accuracy / 2;
         getJson(e);
         // we will not display a marker for every movement that the user makes
@@ -181,7 +182,6 @@ app.controller('mapViewController', ['$scope', 'authService', '$location', 'plac
                 for (var i in data) {
                     //
                     displayPOI(data[i]);
-
                     //output2 += "<li>" + data[i].thgh_geo.location.lat"</li>";
                                                     lati = (data[i]. tgh_geo. location.lat);
                                                     longti = (data[i]. tgh_geo. location.lng);
@@ -209,15 +209,14 @@ app.controller('mapViewController', ['$scope', 'authService', '$location', 'plac
 
                 //shoot the windows on the map
             var showDesc = data[index].tgh_description;
-            if (typeof(showDesc) === 'undefined')
+            if (showDesc === undefined || showDesc === null)
             {
-                showDesc = "No info"}
-
-                var print = "Name: " + data[index].thg_title + "<br>" + "Description: " + data[index].tgh_description + "<br>" + "Address: " +  data[index].tgh_address + "<br>" + "Created: " +  data[index].tgh_created_at + "<br>";
+                showDesc = "No info about this location"
+            }
+                var print = "Name: " + data[index].thg_title + "<br>" + "Description: " + showDesc + "<br>" + "Address: " +  data[index].tgh_address + "<br>" + "Created: " +  data[index].tgh_created_at + "<br>";
                 //formHTML = "<form action=''><input type='text' value=" + print + "/> <input type='button' /> </form>";
                 formHTML= print;
                 L.marker(e.latlng
-
                     //                        , {
                     //                            icon: L.icon({
                     //                                //iconUrl: 'leaf-green.png',
@@ -239,4 +238,20 @@ app.controller('mapViewController', ['$scope', 'authService', '$location', 'plac
                 // console.log("error");
             })
     };
+
+    //post the user  location to the backend
+    var func = function(){
+
+        var trackingObj = {
+            userId: currentUsr,
+            longitude: LNG,
+            latitude: LAT,
+        }
+
+        placeInfoService.addTrackingPoint(trackingObj);
+    }
+
+    var currentUsr;
+
+
 }]);
