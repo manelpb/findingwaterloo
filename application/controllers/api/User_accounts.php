@@ -35,8 +35,12 @@ class User_accounts extends REST_Controller {
     public function auth_post() {
         $response = $this->flexi_auth_model->login($this->post('username'), $this->post('password'));
         
-        if($response)        
-            $this->response(array("status" => true, "user" => $this->user_accounts_model->get_by_username($this->post('username'))), 200);
+        if($response) {
+            $username = $this->user_accounts_model->get_by_username($this->post('username'));
+            $username->uacc_profile = base_url() . "uploads/profile.png";
+            
+            $this->response(array("status" => true, "user" => $username), 200);
+        }
         else
             $this->response(array("status" => false), 403);
     }

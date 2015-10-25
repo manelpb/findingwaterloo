@@ -22,6 +22,21 @@ class User_accounts_model extends CI_Model
         return $this->db->get($this->table)->result();
     }
 
+    function get_all_dropdown() {
+        $this->db->order_by($this->id, $this->order);
+
+        $result = $this->db->get($this->table);
+        $return = array();
+        
+        if ($result->num_rows() > 0) {
+            foreach ($result->result_array() as $row) {
+                $return[$row['uacc_id']] = $row['uacc_username'] . " - ". $row['uacc_email'];
+            }
+        }
+        
+        return $return;
+    }
+
     // get data by id
     function get_by_id($id)
     {

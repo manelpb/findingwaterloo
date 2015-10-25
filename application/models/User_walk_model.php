@@ -29,6 +29,11 @@ class User_walk_model extends CI_Model
         return $this->db->get($this->table)->row();
     }
     
+    function get_all_by_userid($user_id) {
+        $this->db->where("usw_uacc_id", $user_id);
+        return $this->db->get($this->table)->result();        
+    }
+    
     // get total rows
     function total_rows() {
         $this->db->from($this->table);

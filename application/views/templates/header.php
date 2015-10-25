@@ -32,6 +32,9 @@
             <li>
                 <?php echo anchor(site_url('user_accounts'), 'Users'); ?>
             </li>
+            <li>
+                <?php echo anchor(site_url('user_rank'), 'Users Rank'); ?>
+            </li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>

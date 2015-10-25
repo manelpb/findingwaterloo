@@ -3,11 +3,11 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class User_walk_thing_model extends CI_Model
+class User_rank_model extends CI_Model
 {
 
-    public $table = 'user_walk_thing';
-    public $id = 'uwt_id';
+    public $table = 'user_rank';
+    public $id = 'usr_id';
     public $order = 'DESC';
 
     function __construct()
@@ -18,7 +18,7 @@ class User_walk_thing_model extends CI_Model
     // get all
     function get_all()
     {
-        $this->db->order_by($this->id, $this->order);
+        $this->db->order_by("usr_position", $this->order);
         return $this->db->get($this->table)->result();
     }
 
@@ -27,11 +27,6 @@ class User_walk_thing_model extends CI_Model
     {
         $this->db->where($this->id, $id);
         return $this->db->get($this->table)->row();
-    }
-    
-    function get_all_by_userid($user_id) {
-        $this->db->where("uwt_uacc_id", $user_id);
-        return $this->db->get($this->table)->result();        
     }
     
     // get total rows
@@ -49,12 +44,10 @@ class User_walk_thing_model extends CI_Model
     
     // get search total rows
     function search_total_rows($keyword = NULL) {
-        $this->db->like('uwt_id', $keyword);
-	$this->db->or_like('uwt_lat', $keyword);
-	$this->db->or_like('uwt_lng', $keyword);
-	$this->db->or_like('uwt_date_added', $keyword);
-	$this->db->or_like('uwt_uacc_id', $keyword);
-	$this->db->or_like('uwt_thg_id', $keyword);
+        $this->db->like('usr_id', $keyword);
+	$this->db->or_like('usr_uacc_id', $keyword);
+	$this->db->or_like('usr_position', $keyword);
+	$this->db->or_like('usr_points', $keyword);
 	$this->db->from($this->table);
         return $this->db->count_all_results();
     }
@@ -62,12 +55,10 @@ class User_walk_thing_model extends CI_Model
     // get search data with limit
     function search_index_limit($limit, $start = 0, $keyword = NULL) {
         $this->db->order_by($this->id, $this->order);
-        $this->db->like('uwt_id', $keyword);
-	$this->db->or_like('uwt_lat', $keyword);
-	$this->db->or_like('uwt_lng', $keyword);
-	$this->db->or_like('uwt_date_added', $keyword);
-	$this->db->or_like('uwt_uacc_id', $keyword);
-	$this->db->or_like('uwt_thg_id', $keyword);
+        $this->db->like('usr_id', $keyword);
+	$this->db->or_like('usr_uacc_id', $keyword);
+	$this->db->or_like('usr_position', $keyword);
+	$this->db->or_like('usr_points', $keyword);
 	$this->db->limit($limit, $start);
         return $this->db->get($this->table)->result();
     }
@@ -94,5 +85,5 @@ class User_walk_thing_model extends CI_Model
 
 }
 
-/* End of file User_walk_thing_model.php */
-/* Location: ./application/models/User_walk_thing_model.php */
+/* End of file User_rank_model.php */
+/* Location: ./application/models/User_rank_model.php */
