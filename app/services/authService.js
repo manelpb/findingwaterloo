@@ -11,39 +11,69 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
         useRefreshTokens: false
     };
 
-    var _externalAuthData = {
-        provider: "",
-        userName: "",
-        externalAccessToken: ""
-    };
+
 
     var _registrationData = {
         userName: "",
         password: "",
-        confirmPassword: "",
-        Email: "",
-        confirmEmail:""
+        email: ""
+
     }
 
-    //define loginResultEnum
-    //var LogResultEnum = Object.freeze({ "Succeed": 0, "WrongCredential": 1, "Locked": 2, "InActivate" :3 });
 
     var _setRegistrationData = function (registrationData) {
 
         _registrationData.userName        = registrationData.userName;
         _registrationData.password        = registrationData.password;
-        _registrationData.confirmPassword = registrationData.confirmPassword;
-        _registrationData.Email           = registrationData.Email;
-        _registrationData.confirmEmail    = registrationData.confirmEmail;
+        _registrationData.email           = registrationData.email;
+
     };
 
-    var _saveRegistration = function () {
+
+    var _saveRegistration = function (registration) {
 
         _logOut();
 
-        return $http.post(serviceBase + 'api/account/register', _registrationData).then(function (response) {
+        var registrationInfo = {
+            username: "",
+            password: "",
+            email: ""
+        };
+
+
+
+
+
+        registrationInfo.username = registration.userName;
+        registrationInfo.password = registration.password;
+        registrationInfo.email = registration.Email;
+
+
+
+
+   /*     $http({ method: 'POST',
+               url: serviceBase + 'user_accounts',
+               data: registrationInfo,
+               headers: { 'Content-Type': 'application/x-www-form-urlencoded' }}).then(function(result) {
+                console.log(result);
+                return result;
+                },
+                function(error) {
+                    console.log(error);
+                });
+*/
+
+
+
+
+        return $http.post(serviceBase + 'api/user_accounts', registrationInfo).then(function (response) {
             return response;
+        },
+            function(error){
+            return error;
         });
+
+
 
     };
 
@@ -251,6 +281,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
     }
 
     authServiceFactory.saveRegistration = _saveRegistration;
+    //authServiceFactory.registerUser = _registration;
     authServiceFactory.login = _login;
     authServiceFactory.logOut = _logOut;
     authServiceFactory.fillAuthData = _fillAuthData;
@@ -259,7 +290,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
     authServiceFactory.checkUserNameAvailability = _checkUserNameAvailability;
     authServiceFactory.userLogin = user_login;
     authServiceFactory.obtainAccessToken = _obtainAccessToken;
-    authServiceFactory.externalAuthData = _externalAuthData;
+   // authServiceFactory.externalAuthData = _externalAuthData;
     authServiceFactory.registerExternal = _registerExternal;
     authServiceFactory.activateAccount = _activateAccount;
     authServiceFactory.setRegistrationData = _setRegistrationData;

@@ -17,6 +17,13 @@ app.controller('signupController', ['$scope', '$location', '$timeout', 'authServ
         confirmEmail:""
     };
 
+    var getPlaceInfos = function (userName) {
+
+        return $http.get('http://172.31.11.163/findingwaterloo/index.php/api/things').then(function (response) {
+            return response;
+        });
+    };
+
     var checkInputValidity = function () {
 
         if($scope.registration.password != $scope.registration.confirmPassword)
@@ -86,16 +93,14 @@ app.controller('signupController', ['$scope', '$location', '$timeout', 'authServ
         }
     };
 
+
+    /*
     $scope.signUp = function () {
 
-        if (!checkInputValidity())
-        {
-            return false;
-        }
+
 
         ModelShareService.setUserName($scope.registration.userName);
 
-        WizardHandler.wizard().next();
 
 
         //save the registration data.
@@ -103,39 +108,91 @@ app.controller('signupController', ['$scope', '$location', '$timeout', 'authServ
 
 
 
+
+        authService.registerUser().then(function(response){
+
+             $scope.savedSuccessfully = true;
+            $scope.message = response.data;
+
+            //if signup succeeds, then login directly.
+            if (response.status == 200)
+            {
+               var _loginData = {
+                   userName: $scope.registration.userName,
+                   password: $scope.registration.password
+               };
+
+               authService.userLogin(_loginData);
+            }
+
+            $location.path('/home');
+
+        });
+
+    }; */
+
+
+     $scope.signUp = function () {
+
+        authService.saveRegistration($scope.registration).then(function (response) {
+
+            $scope.savedSuccessfully = true;
+            $scope.message = response.data;
+
+            //if signup succeeds, then login directly.
+            if (response.status == 200)
+            {
+               var _loginData = {
+                   userName: $scope.registration.userName,
+                   password: $scope.registration.password
+               };
+
+               authService.userLogin(_loginData);
+
+                 $location.path('/mainView');
+            }
+            else
+            {
+                $scope.ErrorMessage = response.statusText;
+                $scope.description = response.data.message;
+            }
+
+
+
+        });
     };
 
 
     var registerUser = function () {
 
-        authService.saveRegistration($scope.registration).then(function (response) {
 
-            var message = response.data;
+       authService.saveRegistration($scope.registration).then(function (response) {
+
+            $scope.savedSuccessfully = true;
+            $scope.message = response.data;
 
             //if signup succeeds, then login directly.
-            if (response.status == 200) {
-                var _loginData = {
-                    userName: $scope.registration.userName,
-                    password: $scope.registration.password
-                };
+            if (response.status == 200)
+            {
+               var _loginData = {
+                   userName: $scope.registration.userName,
+                   password: $scope.registration.password
+               };
 
-                authService.userLogin(_loginData);
+               authService.userLogin(_loginData);
             }
 
             $location.path('/home');
 
         },
-             function (response) {
-                 var errors = [];
-                 for (var key in response.data.modelState) {
-                     for (var i = 0; i < response.data.modelState[key].length; i++) {
-                         errors.push(response.data.modelState[key][i]);
-                     }
-                 }
-                 message = "Failed to register user due to:" + errors.join(' ');
-             });
+         function (response) {
 
-        return message;
+             $scope.ErrorMessage = response.statusText;
+        });
+
+
+
+
     };
 
 
@@ -143,7 +200,7 @@ app.controller('signupController', ['$scope', '$location', '$timeout', 'authServ
 }]);
 
 
-
+/*
 app.directive('ngUnique', ['authService', function (authService) {
         return {
             restrict: 'A',
@@ -174,3 +231,6 @@ app.directive('ngUnique', ['authService', function (authService) {
             }
         }
     }]);
+
+
+*/
