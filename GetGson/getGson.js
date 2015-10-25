@@ -37,7 +37,7 @@ $( document ).ready(function() {
     }
     output += "</ul>";
 
-    //click event
+    //click event to get the data from dummy data
     $( "#target" ).click(function() {
     //alert( "Handler for .click() called." );
         document.getElementById("placeholder").innerHTML = output;
@@ -88,6 +88,7 @@ $( document ).ready(function() {
         console.log( "complete" );
       });
 
+    //click event for get Geso from server
 
     $( "#target2" ).click(function() {
     //alert( "Handler for .click() called." );
