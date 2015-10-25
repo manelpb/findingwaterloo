@@ -1,5 +1,5 @@
 'use strict';
-app.controller('loginController', ['$scope', '$location', 'authService', 'ngAuthSettings', 'ModelShareService', function ($scope, $location, authService, ngAuthSettings, ModelShareService) {
+app.controller('loginController', ['$scope', '$location', 'authService', 'ngAuthSettings', 'ModelShareService', 'localStorageService', function ($scope, $location, authService, ngAuthSettings, ModelShareService, localStorageService) {
 
     $scope.loginData = {
         userName: "",
@@ -29,6 +29,10 @@ app.controller('loginController', ['$scope', '$location', 'authService', 'ngAuth
 
         //authService.login($scope.loginData).then(function (response) {
         authService.userLogin($scope.login_data).then(function (response) {
+
+            ModelShareService.setUser(response.user);
+
+            //localStorageService.set('currentUserData', { userName: response.uacc_userName, imageUrl: response.uacc_profile });
 
             $location.path('/mapView');
         },
