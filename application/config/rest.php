@@ -476,7 +476,7 @@ $config['rest_ignore_http_accept'] = FALSE;
 | Hint: This is good for production environments
 |
 */
-$config['rest_ajax_only'] = FALSE;
+//$config['rest_ajax_only'] = t;
 
 /*
 |--------------------------------------------------------------------------

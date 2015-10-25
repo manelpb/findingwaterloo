@@ -23,6 +23,15 @@ class Things_model extends CI_Model
         return $this->db->get($this->table)->result();
     }
 
+    // get all
+    function get_all_by_type($type)
+    {
+        $this->db->order_by($this->id, $this->order);
+        $this->db->where("tgh_tty_id", $type);
+        $this->db->join('thing_types', 'tty_id = tgh_tty_id');
+        return $this->db->get($this->table)->result();
+    }
+
     // get data by id
     function get_by_id($id)
     {

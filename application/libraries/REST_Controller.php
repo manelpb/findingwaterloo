@@ -169,7 +169,7 @@ abstract class REST_Controller extends CI_Controller {
      *
      * @var array
      */
-    protected $allowed_http_methods = ['get', 'delete', 'post', 'put', 'options', 'patch', 'head'];
+    protected $allowed_http_methods = ['get', 'delete', 'post', 'options', 'put', 'patch', 'head'];
 
     /**
      * Contains details about the request
@@ -373,6 +373,14 @@ abstract class REST_Controller extends CI_Controller {
     public function __construct($config = 'rest')
     {
         parent::__construct();
+
+        header('Access-Control-Allow-Origin: *');
+        header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
+        header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+        $method = $_SERVER['REQUEST_METHOD'];
+        if ($method == "OPTIONS") {
+            die();
+        }
 
         // Disable XML Entity (security vulnerability)
         libxml_disable_entity_loader(TRUE);

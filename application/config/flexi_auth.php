@@ -422,7 +422,7 @@
 	 * Set the minimum required characters for the users password.
 	 * @param int
 	*/
-	$config['security']['min_password_length'] = 8;
+	$config['security']['min_password_length'] = 3;
 	
 	/**
 	 * Set which characters are valid for user passwords.
