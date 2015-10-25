@@ -42,7 +42,7 @@
                         <li data-ng-hide="!authentication.isAuth"> <a href="#/start">Start</a></li>
                         <li data-ng-hide="!authentication.isAuth"><a href="" data-ng-click="logOut()">Logout</a></li>
                         <li data-ng-hide="authentication.isAuth"> <a href="#/login">Login</a></li>
-                        <li> <a href="#/mapView">Map View</a></li>
+                        <li data-ng-hide="!authentication.isAuth"> <a href="#/mapView">Map View</a></li>
 <!--                        <li> <a href="./app/views/mainView.html">Main View</a></li>-->
                         <!--<li data-ng-hide="authentication.isAuth"> <a href="#/signup">Sign Up</a></li>-->
                         <li ><a href="#/Contact">Contact</a></li>
