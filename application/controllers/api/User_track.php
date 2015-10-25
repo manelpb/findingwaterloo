@@ -20,11 +20,11 @@ class User_track extends REST_Controller {
         $this->load->model('user_walk_thing_model');
     }
     
-    /*
     public function map_filled_get() {
         //https://maps.googleapis.com/maps/api/staticmap?center=43.463310,%20-80.525736&zoom=13&size=600x300&maptype=roadmap&markers=color:blue%7Clabel:S%7C40.702147,-74.015794&markers=color:green%7Clabel:G%7C40.711614,-74.012318&markers=color:red%7Clabel:C%7C40.718217,-73.998284&key=AIzaSyBM-g5g2KBvvQ1H8eLlyVET1ALlh9uKPiE
         
         $markers = $this->user_walk_model->get_all();
+       // $things = $this->things_model->get_all();
         
         $str = array();;
         
@@ -51,27 +51,41 @@ class User_track extends REST_Controller {
         $mapFill_second = '000000'; // fill colour of the second circle
         $map1Border1 = '0000CC'; // border colour of the first circle
         $map1Border2 = '0000CC'; // border colour of the second circle
-        $mapWidth = 450; // map image width (max 640px)
-        $mapHeight = 450; // map image height (max 640px)
+        $mapWidth = 900; // map image width (max 640px)
+        $mapHeight = 800; // map image height (max 640px)
         $zoom = 11;
-        $scale = 2;
+        $scale = 4;
         $EncString1 = $this->GMapCircle($mapLat, $mapLng, $mapRadius1);
         $EncString2 = $this->GMapCircle($mapLat, $mapLng, $mapRadius2);
         
-        $MapAPI = 'http://maps.google.com.au/maps/api/staticmap?';
-        $MapURL = $MapAPI . 'center=' . $mapLat . ',' . $mapLng . '&zoom=' . $zoom . '&size=' .
+        if(!$this->get("no_marks")) { 
+            $MapAPI = 'http://maps.google.com.au/maps/api/staticmap?style=element:labels|visibility:off&style=element:geometry.stroke|visibility:off&style=feature:all|visibility:off&style=feature:water|visibility:off|invert_lightness:true&';
+            $MapURL = $MapAPI . 'center=' . $mapLat . ',' . $mapLng . '&zoom=' . $zoom . '&size=' .
+                $mapWidth . 'x' . $mapHeight . '&scale=' . $scale . '&markers=color:red%7Clabel:S%7C'.$mapLat.','.$mapLng . '&maptype=roadmap';
+            
+            foreach($markers as $marker) {
+                $MapURL .= '&path=color:0x00000099|weight:90|fillcolor:0x00000099|enc:' . $this->GMapCircle($marker->usw_lat, $marker->usw_lng, $mapRadius1);
+            }
+        } else {
+            $MapAPI = 'http://maps.google.com.au/maps/api/staticmap?style=element:labels|visibility:true&';
+            
+            $MapURL = $MapAPI . 'center=' . $mapLat . ',' . $mapLng . '&zoom=' . $zoom . '&size=' .
             $mapWidth . 'x' . $mapHeight . '&scale=' . $scale . '&markers=color:red%7Clabel:S%7C'.$mapLat.','.$mapLng .
             '&maptype=roadmap';
+            
+          /*  foreach($things as $thing) { 
+                $geo = unserialize($thing->tgh_geo);                
+                $MapURL .= "&markers=size:mid|color:red|" . $geo['location']['lat'] . "," . $geo['location']['lng'];
+                break;
+            }*/
         
-        foreach($markers as $marker) {
-            $MapURL .= '&path=fillcolor:0x' . $mapFill_first . '33%7Ccolor:0x' . $map1Border1 . '00%7Cenc:' . $this->GMapCircle($marker->usw_lat, $marker->usw_lng, $mapRadius1);
         }
         
         //&path=fillcolor:0x' .
           //  $mapFill_second . '33%7Ccolor:0x' . $map1Border2 . '00%7Cenc:' . $EncString2;
 
-        echo '<img src="' . $MapURL . '" />';
-        //echo $MapURL;
+        //echo '<img src="' . $MapURL . '" />';
+        echo file_get_contents($MapURL);
         
     }
     
@@ -99,7 +113,6 @@ class User_track extends REST_Controller {
         return $EncString['Points'];
     }
 
-    */
     
     public function walk_history_get() {
         $user_id = $this->get("user_id");

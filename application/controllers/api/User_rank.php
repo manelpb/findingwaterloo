@@ -13,10 +13,21 @@ class User_rank extends REST_Controller {
 
         $this->auth = new stdClass;
 
+        $this->load->model('user_accounts_model');
         $this->load->model('user_rank_model');
     }
-    
+
     public function index_get() {
-        $this->response($this->user_rank_model->get_all());
+        $user_id = $this->get("user_id");
+
+        if ($user_id) {
+            // check if this user exists
+            if ($this->user_accounts_model->get_by_id($user_id)) {
+                $this->response($this->user_rank_model->get_by_userid($user_id));
+            }
+        } else {
+            $this->response($this->user_rank_model->get_all());
+        }
     }
+
 }

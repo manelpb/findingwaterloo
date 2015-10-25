@@ -18,8 +18,15 @@ class User_rank_model extends CI_Model
     // get all
     function get_all()
     {
-        $this->db->order_by("usr_position", $this->order);
+        $this->db->select("usr_position, usr_points, uacc_username, uacc_id, uacc_email");
+        $this->db->order_by("usr_position", $this->order);        
+        $this->db->join('user_accounts', 'usr_uacc_id = uacc_id');
         return $this->db->get($this->table)->result();
+    }
+    
+    function get_by_userid($user_id) {
+        $this->db->where("usr_uacc_id", $user_id);
+        return $this->db->get($this->table)->row();
     }
 
     // get data by id
