@@ -133,20 +133,22 @@ app.controller('mapViewController', ['$scope', 'authService', '$location', 'plac
                     //    }
                 };
 
-                function    displayPOI(POIObject) {
+                function displayPOI(POIObject) {
                     POIObject.latlng= {
-                        latitude: POIObject.latitude,
-                        longitude: POIObject.longitude
+                        latitude: POIObject.tgh_geo.location.lat,
+                        longitude: POIObject.tgh_geo.location.lng
                     };
-                    L.marker(POIObject.latlng, {
+                    L.marker(L.latlng(POIObject.latlng), {
                             icon: L.icon({
-                                iconUrl: POIObject.imageURL,
+                                iconUrl: POIObject.tty_icon,
                                 iconSize: [38, 95], // size of the icon
                                 iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
                                 popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
                             })
                         }).addTo(map)
-                        .bindPopup(POIObject.name).openPopup();
+                        .bindPopup(POIObject.title).openPopup();
+
+                    L.marker([43.463303499999995, -80.5260072]).addTo(map);
                 };
 
                 function onLocationFound(e) {
@@ -175,21 +177,26 @@ app.controller('mapViewController', ['$scope', 'authService', '$location', 'plac
                         .done(function (data) {
                             //console.log(data);
                             for (var i in data) {
-                                //output2 += "<li>" + data[i].thgh_geo.location.lat"</li>";
-                                lati = (data[i]. tgh_geo. location.lat);
-                                longti = (data[i]. tgh_geo. location.lng);
-                                //find the spot near by add and sub INTERVAL
-                                /*if (lati+INTERVAL>e.latitude || lati-INTERVAL<lat)&&(longti+INTERVAAL>e.longitude || longti < e.longitude )
-                                    {
+//
+                                displayPOI(data[i]);
 
-                                    }*/
-                                //store the data to local
-                                title = data[i].thg_title;
-                                discription = data[i].tgh_description;
-                                address = data[i].tgh_address;
-                                created = data[i].tgh_created_at;
-                                icon = data[i].tty_icon;
-                                break;
+                                //output2 += "<li>" + data[i].thgh_geo.location.lat"</li>";
+//                                lati = (data[i]. tgh_geo. location.lat);
+//                                longti = (data[i]. tgh_geo. location.lng);
+//                                //find the spot near by add and sub INTERVAL
+//                                /*if (lati+INTERVAL>e.latitude || lati-INTERVAL<lat)&&(longti+INTERVAAL>e.longitude || longti < e.longitude )
+//                                    {
+//
+//                                    }*/
+//                                //store the data to local
+//                                title = data[i].thg_title;
+//                                discription = data[i].tgh_description;
+//                                address = data[i].tgh_address;
+//                                created = data[i].tgh_created_at;
+//                                icon = data[i].tty_icon;
+//
+//
+//                                break;
                             }
 
                                 //                console.log(title + "disc   " + discription + "addr  " + address + "create    " + created + "  icon " + icon);
