@@ -40,6 +40,10 @@ app.config(function ($routeProvider) {
         templateUrl: "/app/views/associate.html"
     });
 
+    $routeProvider.when("/mainView", {
+        controller: "mainViewController",
+        templateUrl: "/app/views/mainView.html"
+    });
 
     $routeProvider.when("/activate", {
         controller: "activateController",
@@ -70,7 +74,8 @@ app.config(function ($routeProvider) {
 
 });
 
-var serviceBase = 'http://localhost:58077/';
+var serviceBase = 'http://172.31.11.163/findingwaterloo/index.php/';
+    //'http://localhost:58077/';
 app.constant('ngAuthSettings', {
     apiServiceBaseUri: serviceBase,
     clientId: 'FindingWaterlooApp'

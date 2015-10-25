@@ -33,7 +33,8 @@
                     </span>
                     <!--<button class="btn btn-lg btn-info btn-block" type="submit" data-ng-click="signUp()">Submit</button>-->
                     <button  class="btn btn-lg btn-info btn-block" data-ng-click="signUp()" ng-disabled="signup_form.$invalid">Submit</button>
-
+                    <span class="alert-danger" style="font-size: 11px;">{{ErrorMessage}}</span>
+                    <span class="alert-danger" style="font-size: 11px;">{{description}}</span>
                 </div>
             </form>
             </div>
