@@ -55,6 +55,24 @@ class Things extends CI_Controller
         }
     }
     
+    public function import_csv() { 
+        $data = array(
+            'button' => 'Import CSV',
+            'action' => site_url('things/import_csv'),
+	    'thg_id' => set_value('thg_id'),
+	    'thg_title' => set_value('thg_title'),
+	    'tgh_description' => set_value('tgh_description'),
+	    'tgh_image' => set_value('tgh_image'),
+	    'tgh_geo' => set_value('tgh_geo'),
+	    'tgh_address' => set_value('tgh_address'),
+	    'tgh_popularity' => set_value('tgh_popularity'),
+	    'tgh_tty_id' => set_value('tgh_tty_id'),
+            'thingsTypesOptions' => $this->thing_types_model->get_all_dropdown(),
+	);
+        
+        $this->load->template('things_import_csv', $data);
+    }
+    
     public function create() 
     {
         $data = array(

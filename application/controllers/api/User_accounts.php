@@ -15,10 +15,10 @@ class User_accounts extends REST_Controller {
 
         $this->load->library('flexi_auth');
         $this->load->model('flexi_auth_model');
+        $this->load->model('user_accounts_model');
     }
 
     public function index_post() {
-
         $userID = $this->flexi_auth_model->insert_user($this->post('email'), $this->post('username'), $this->post('password'));
         if ($userID) {
             $this->flexi_auth_model->activate_user($userID);
@@ -34,7 +34,11 @@ class User_accounts extends REST_Controller {
 
     public function auth_post() {
         $response = $this->flexi_auth_model->login($this->post('username'), $this->post('password'));
-        $this->response(array("status" => $response));
+        
+        if($response)        
+            $this->response(array("status" => true, "user" => $this->user_accounts_model->get_by_username($this->post('username'))), 200);
+        else
+            $this->response(array("status" => false), 403);
     }
 
     public function check_post() {

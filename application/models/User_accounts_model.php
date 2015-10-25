@@ -28,6 +28,13 @@ class User_accounts_model extends CI_Model
         $this->db->where($this->id, $id);
         return $this->db->get($this->table)->row();
     }
+
+    // get data by id
+    function get_by_username($username)
+    {
+        $this->db->where("uacc_username", $username);
+        return $this->db->get($this->table)->row();
+    }
     
     // get total rows
     function total_rows() {

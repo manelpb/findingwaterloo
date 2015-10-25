@@ -10,6 +10,8 @@
             </div>
             <div class="col-md-4 text-right">
                 <?php echo anchor(site_url('things/create'), 'Create', 'class="btn btn-primary"'); ?>
+                
+                <?php echo anchor(site_url('things/import_csv'), 'Import File', 'class="btn btn-primary"'); ?>
 	    </div>
         </div>
         <table class="table table-bordered table-striped" id="mytable">

@@ -26,7 +26,7 @@
         <input type="text" class="form-control" name="tgh_popularity" id="tgh_popularity" placeholder="popularity" value="<?php echo $tgh_popularity; ?>" />
     </div>
     <div class="form-group">
-        <label for="int">Type <?php echo form_error('tgh_tty_id') ?></label>
+        <label for="int">tty <?php echo form_error('tgh_tty_id') ?></label>
         <?php echo form_dropdown("tgh_tty_id", $thingsTypesOptions, $tgh_tty_id, "class='form-control'") ?>
     </div>
     <input type="hidden" name="thg_id" value="<?php echo $thg_id; ?>" /> 
