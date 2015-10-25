@@ -43,7 +43,7 @@
                         <li data-ng-hide="authentication.isAuth"> <a href="#/login" style="color: black; font-weight: bold;">Login</a></li>
                         <li data-ng-hide="!authentication.isAuth"><a href="#/profile" style="color: black; font-weight: bold;">Profile</a></li>
                         <li data-ng-hide="!authentication.isAuth"> <a href="#/mapView" style="color: black; font-weight: bold;">Map View</a></li>
-                        <li data-ng-hide="!authentication.isAuth"><a href="" data-ng-click="logOut()" style="color: black; font-weight: bold;">Logout</a></li>
+                        <li data-ng-hide="!authentication.isAuth"><a href="" ng-click="logOut()"; style="color: black; font-weight: bold;">Logout</a></li>
 
 <!--                        <li> <a href="./app/views/mainView.html">Main View</a></li>-->
                         <!--<li data-ng-hide="authentication.isAuth"> <a href="#/signup">Sign Up</a></li>-->
@@ -53,7 +53,7 @@
             </div>
         </div>
 
-        <div  style="height:100%; margin-top: 40px; min-height: 100%; padding-top: 5%;">
+        <div  style="height:100%; min-height: 100%;">
 
             <div data-ng-view="">
             </div>

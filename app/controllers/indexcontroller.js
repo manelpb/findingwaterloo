@@ -1,9 +1,18 @@
 'use strict';
-app.controller('indexController', ['$scope', '$location', 'authService', 'localStorageService', function ($scope, $location, authService, localStorageService) {
+app.controller('indexController', ['$scope', '$location', 'authService', 'localStorageService', '$window', function ($scope, $location, authService, localStorageService, $window) {
 
     $scope.logOut = function () {
-        authService.logOut();
-        $location.path('/home');
+
+        var isLogOut = $window.confirm('Do you want to leave?');
+
+        if (isLogOut) {
+
+            authService.logOut();
+            $location.path('/home');
+            return false;
+        }
+
+
     }
 
     $scope.authentication = authService.authentication;
@@ -14,7 +23,6 @@ app.controller('indexController', ['$scope', '$location', 'authService', 'localS
             $scope.img_url = userData.imageUrl;
             $scope.username = userData.userName;
         }
-
 
 }]);
 
