@@ -38,6 +38,13 @@ class Things_model extends CI_Model
         $this->db->where($this->id, $id);
         return $this->db->get($this->table)->row();
     }
+
+    // get data by id
+    function get_by_title($title)
+    {
+        $this->db->where("tgh_title", $title);
+        return $this->db->get($this->table)->row();
+    }
     
     // get total rows
     function total_rows() {
@@ -86,7 +93,8 @@ class Things_model extends CI_Model
     // insert data
     function insert($data)
     {
-        $this->db->insert($this->table, $data);
+        $this->db->insert($this->table, $data);        
+        return $this->db->insert_id();
     }
 
     // update data

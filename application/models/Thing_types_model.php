@@ -40,6 +40,12 @@ class Thing_types_model extends CI_Model {
         return $this->db->get($this->table)->row();
     }
 
+    // get data by id
+    function get_by_title($title) {
+        $this->db->where("tty_title", $title);
+        return $this->db->get($this->table)->row();
+    }
+
     // get total rows
     function total_rows() {
         $this->db->from($this->table);
@@ -74,7 +80,8 @@ class Thing_types_model extends CI_Model {
 
     // insert data
     function insert($data) {
-        $this->db->insert($this->table, $data);
+        $this->db->insert($this->table, $data);     
+        return $this->db->insert_id();
     }
 
     // update data
