@@ -168,6 +168,8 @@ app.controller('mapViewController', ['$scope', 'authService', '$location', 'plac
         var address;
         var created;
         var icon;
+        var dif = 99999999999; //longla difference value give a impossible value more than any dif
+        var index;
         const INTERVAL = 0.000060;
         var discoverApii = "http://172.31.11.163/findingwaterloo/index.php/api/things"
         info = $.getJSON(discoverApii, function () {
@@ -179,34 +181,36 @@ app.controller('mapViewController', ['$scope', 'authService', '$location', 'plac
                 for (var i in data) {
                     //
                     displayPOI(data[i]);
-                    //break;
-                    //output2 += "<li>" + data[i].thgh_geo.location.lat"</li>";
-                    //                                lati = (data[i]. tgh_geo. location.lat);
-                    //                                longti = (data[i]. tgh_geo. location.lng);
-                    //                                //find the spot near by add and sub INTERVAL
-                    //                                /*if (lati+INTERVAL>e.latitude || lati-INTERVAL<lat)&&(longti+INTERVAAL>e.longitude || longti < e.longitude )
-                    //                                    {
-                    //
-                    //                                    }*/
-                    //                                //store the data to local
-                    //                                title = data[i].thg_title;
-                    //                                discription = data[i].tgh_description;
-                    //                                address = data[i].tgh_address;
-                    //                                created = data[i].tgh_created_at;
-                    //                                icon = data[i].tty_icon;
-                    //
-                    //
-                    //                                break;
-                }
 
-                //                console.log(title + "disc   " + discription + "addr  " + address + "create    " + created + "  icon " + icon);
+                    //output2 += "<li>" + data[i].thgh_geo.location.lat"</li>";
+                                                    lati = (data[i]. tgh_geo. location.lat);
+                                                    longti = (data[i]. tgh_geo. location.lng);
+                                                    //find the spot near by add and sub INTERVAL
+                                                    /*if (lati+INTERVAL>e.latitude || lati-INTERVAL<lat)&&(longti+INTERVAAL>e.longitude || longti < e.longitude )
+                                                        {
+
+                                                        }*/
+                                                    //store the data to local
+                                                    title = data[i].thg_title;
+                                                    discription = data[i].tgh_description;
+                                                    address = data[i].tgh_address;
+                                                    created = data[i].tgh_created_at;
+                                                    //icon = data[i].tty_icon;
+                    //give the index of the nearest place where user's place
+                    var tempDif = Math.abs(e.latitude - lati ) + Math.abs(e.longitude - longti);
+                    if (dif > tempDif){
+                        index = i;
+                        dif = tempDif;
+                    }
+
+                }
 
                 var radius = e.accuracy / 2;
 
-
                 //shoot the windows on the map
-                var print = "Name: " + title + "<br>" + "Description" + discription + "<br>" + "Address " + address + "<br>" + "Created " + created + "<br>";
-                formHTML = "<form action=''><input type='text' value=" + print + "/> <input type='button' /> </form>";
+                var print = "Name: " + data[index].thg_title + "<br>" + "Description" + data[index].tgh_description + "<br>" + "Address " +  data[index].tgh_address + "<br>" + "Created " +  data[index].tgh_created_at + "<br>";
+                //formHTML = "<form action=''><input type='text' value=" + print + "/> <input type='button' /> </form>";
+                formHTML= print;
                 L.marker(e.latlng
 
                     //                        , {
@@ -223,15 +227,11 @@ app.controller('mapViewController', ['$scope', 'authService', '$location', 'plac
                 //.bindPopup("Name: " + title + "<br>" + "Description" + discription + "<br>" + "Address " + address + "<br>" + "Created " + created).openPopup();
                 L.circle(e.latlng, radius).addTo(map);
 
-                //return[title, discription, address, created];
-
-
-
                 //            console.log("second success");
             })
             // do when the connection failed
             .fail(function () {
-                //            console.log("error");
+                // console.log("error");
             })
     };
 }]);
