@@ -154,6 +154,7 @@ app.controller('mapViewController', ['$scope', 'authService', '$location', 'plac
                 };
                 //get the Json from backend server
                 function getJson(e) {
+                    console.log(e.latitude);
                     var lati;
                     var longti;
                     var title;
@@ -164,24 +165,28 @@ app.controller('mapViewController', ['$scope', 'authService', '$location', 'plac
                     const INTERVAL = 0.000060;
                     var discoverApii = "http://172.31.11.163/findingwaterloo/index.php/api/things"
                     info = $.getJSON(discoverApii, function () {
-                            //            console.log("success on access command");
+                                        console.log("success on access command");
                         })
-                        //do when success
+                        //do when load the data successfully
                         .done(function (data) {
                             //console.log(data);
                             for (var i in data) {
                                 //output2 += "<li>" + data[i].thgh_geo.location.lat"</li>";
                                 lati = (data[i]. tgh_geo. location.lat);
                                 longti = (data[i]. tgh_geo. location.lng);
+                                //find the spot near by add and sub INTERVAL
                                 /*if (lati+INTERVAL>e.latitude || lati-INTERVAL<lat)&&(longti+INTERVAAL>e.longitude || longti < e.longitude )
                                     {
 
                                     }*/
+                                //store the data to local
                                 title = data[i].thg_title;
                                 discription = data[i].tgh_description;
                                 address = data[i].tgh_address;
                                 created = data[i].tgh_created_at;
                                 icon = data[i].tty_icon;
+                                break;
+                            }
 
                                 //                console.log(title + "disc   " + discription + "addr  " + address + "create    " + created + "  icon " + icon);
 
@@ -189,6 +194,8 @@ app.controller('mapViewController', ['$scope', 'authService', '$location', 'plac
 
 
                                 //shoot the windows on the map
+                                var print = "Name: " + title + "<br>" + "Description" + discription + "<br>" + "Address " + address + "<br>" + "Created " + created + "<br>";
+                                formHTML = "<form action=''><input type='text' value=" + print+ "/> <input type='button' /> </form>";
                                 L.marker(e.latlng
 
                                     //                        , {
@@ -207,7 +214,7 @@ app.controller('mapViewController', ['$scope', 'authService', '$location', 'plac
 
                                 //return[title, discription, address, created];
 
-                            }
+
 
                             //            console.log("second success");
                         })
