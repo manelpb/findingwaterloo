@@ -15,6 +15,9 @@ app.controller('indexController', ['$scope', '$location', 'authService', 'localS
 
     }
 
+
+
+
     $scope.authentication = authService.authentication;
 
     var userData = localStorageService.get('currentUserData');
@@ -22,6 +25,8 @@ app.controller('indexController', ['$scope', '$location', 'authService', 'localS
 
             $scope.img_url = userData.imageUrl;
             $scope.username = userData.userName;
+
+             $scope.authentication.isAuth = userData.isAuth;
         }
 
 }]);

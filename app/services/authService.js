@@ -51,19 +51,6 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
 
 
 
-   /*     $http({ method: 'POST',
-               url: serviceBase + 'user_accounts',
-               data: registrationInfo,
-               headers: { 'Content-Type': 'application/x-www-form-urlencoded' }}).then(function(result) {
-                console.log(result);
-                return result;
-                },
-                function(error) {
-                    console.log(error);
-                });
-*/
-
-
 
 
         return $http.post(serviceBase + 'api/user_accounts', registrationInfo).then(function (response) {
@@ -86,7 +73,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
         $http.post(serviceBase + 'api/user_accounts/auth', loginData /*, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }*/).success(function (response) {
 
             var tokenExpireTime = new Date().getTime() / 1000 + response.expires_in;
-            localStorageService.set('currentUserData', { userId: response.user.uacc_id, userName: response.user.uacc_username, imageUrl: response.user.uacc_profile });
+            localStorageService.set('currentUserData', { userId: response.user.uacc_id, userName: response.user.uacc_username, imageUrl: response.user.uacc_profile, isAuth: true });
 
             _authentication.isAuth = true;
             _authentication.userName = loginData.username;
@@ -107,7 +94,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
     var _logOut = function () {
 
         localStorageService.remove('authorizationData');
-
+        localStorageService.remove('currentUserData');
         _authentication.isAuth = false;
         _authentication.userName = "";
         _authentication.useRefreshTokens = false;
