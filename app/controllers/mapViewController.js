@@ -1,13 +1,13 @@
 var map = '';
-<<<<<<< HEAD
+
 var zoomLevel = 13;
 var LAT;
 var LNG;
-=======
+
 var zoomLevel = 16;
 var stringImageURL = '';
 
->>>>>>> origin/alex
+
 var formHTML = "<form action=''><input type='text' value='test' /> <input type='button' /> </form>";
 
 'use strict';
@@ -242,21 +242,21 @@ app.controller('mapViewController', ['$scope', 'authService', '$location', 'plac
             var radius = 25;
 
                 //shoot the windows on the map
-<<<<<<< HEAD
+
             var showDesc = data[index].tgh_description;
             if (showDesc === undefined || showDesc === null)
             {
                 showDesc = "No info about this location"
             }
                 var print = "Name: " + data[index].thg_title + "<br>" + "Description: " + showDesc + "<br>" + "Address: " +  data[index].tgh_address + "<br>" + "Created: " +  data[index].tgh_created_at + "<br>";
-=======
+
                 var showDesc = data[index].tgh_description;
                 if (typeof (showDesc) === 'undefined') {
                     showDesc = "No info"
                 }
 
                 var print = "Name: " + data[index].thg_title + "<br>" + "Description: " + data[index].tgh_description + "<br>" + "Address: " + data[index].tgh_address + "<br>" + "Created: " + data[index].tgh_created_at + "<br>";
->>>>>>> origin/alex
+
                 //formHTML = "<form action=''><input type='text' value=" + print + "/> <input type='button' /> </form>";
                 formHTML = print;
                 L.marker(e.latlng
@@ -290,7 +290,7 @@ app.controller('mapViewController', ['$scope', 'authService', '$location', 'plac
             })
     };
 
-<<<<<<< HEAD
+
     //post the user  location to the backend
     var func = function(){
 
@@ -305,7 +305,7 @@ app.controller('mapViewController', ['$scope', 'authService', '$location', 'plac
 
     var currentUsr;
 
-=======
+
 
     var rndCoordinates = function (from, to, fixed) {
         return (Math.random() * (to - from) + from).toFixed(fixed) * 1;
@@ -340,6 +340,6 @@ app.controller('mapViewController', ['$scope', 'authService', '$location', 'plac
             }).addTo(map);
         }
     };
->>>>>>> origin/alex
+
 
 }]);
