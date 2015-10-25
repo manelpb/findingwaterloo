@@ -63,6 +63,10 @@ app.config(function ($routeProvider) {
         }
     });
 
+    $routeProvider.when("/profile", {
+        controller: "profileController",
+        templateUrl: "/app/views/profile.html"
+    });
 
     $routeProvider.when("/begin_password_reset", {
         controller: "resetPasswordController",

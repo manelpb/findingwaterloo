@@ -86,10 +86,10 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
         $http.post(serviceBase + 'api/user_accounts/auth', loginData /*, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }*/).success(function (response) {
 
             var tokenExpireTime = new Date().getTime() / 1000 + response.expires_in;
-            localStorageService.set('authorizationData', { token: response.access_token, userName: loginData.userName, expireTime: tokenExpireTime });
+            localStorageService.set('currentUserData', { userId: response.user.uacc_id, userName: response.user.uacc_username, imageUrl: response.user.uacc_profile });
 
             _authentication.isAuth = true;
-            _authentication.userName = loginData.userName;
+            _authentication.userName = loginData.username;
 
             deferred.resolve(response);
 

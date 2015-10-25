@@ -1,7 +1,13 @@
 var map = '';
+<<<<<<< HEAD
 var zoomLevel = 13;
 var LAT;
 var LNG;
+=======
+var zoomLevel = 16;
+var stringImageURL = '';
+
+>>>>>>> origin/alex
 var formHTML = "<form action=''><input type='text' value='test' /> <input type='button' /> </form>";
 
 'use strict';
@@ -64,6 +70,33 @@ app.controller('mapViewController', ['$scope', 'authService', '$location', 'plac
 
         // zoom the map to that bounding box
         //    map.fitBounds(bounds);
+
+        //adding the draw control for circle generation
+//        $scope.drawControl = new L.Control.Draw({}).addTo(map);
+//        $scope.drawControl = new L.Control.Draw({
+//            edit: {
+//                featureGroup: $scope.featureGroup,
+//                remove: false,
+//                edit: !false
+//            },
+//            draw: {
+//                polygon: false,
+//                polyline: false,
+//                rectangle: false,
+//                circle: true,
+//                marker: false
+//            },
+//        })
+//
+//        map.addControl($scope.drawControl);
+//
+//var filterCircle = L.circle(L.latLng(43.4822744, -80.5818235), 5, {
+//    opacity: 1,
+//    weight: 1,
+//    fillOpacity: 0.4
+//}).addTo(map);
+
+
     };
 
     function displayMap(position) {
@@ -183,39 +216,49 @@ app.controller('mapViewController', ['$scope', 'authService', '$location', 'plac
                     //
                     displayPOI(data[i]);
                     //output2 += "<li>" + data[i].thgh_geo.location.lat"</li>";
-                                                    lati = (data[i]. tgh_geo. location.lat);
-                                                    longti = (data[i]. tgh_geo. location.lng);
-                                                    //find the spot near by add and sub INTERVAL
-                                                    /*if (lati+INTERVAL>e.latitude || lati-INTERVAL<lat)&&(longti+INTERVAAL>e.longitude || longti < e.longitude )
-                                                        {
+                    lati = (data[i].tgh_geo.location.lat);
+                    longti = (data[i].tgh_geo.location.lng);
+                    //find the spot near by add and sub INTERVAL
+                    /*if (lati+INTERVAL>e.latitude || lati-INTERVAL<lat)&&(longti+INTERVAAL>e.longitude || longti < e.longitude )
+                        {
 
-                                                        }*/
-                                                    //store the data to local
-                                                    title = data[i].thg_title;
-                                                    discription = data[i].tgh_description;
-                                                    address = data[i].tgh_address;
-                                                    created = data[i].tgh_created_at;
-                                                    //icon = data[i].tty_icon;
+                        }*/
+                    //store the data to local
+                    title = data[i].thg_title;
+                    discription = data[i].tgh_description;
+                    address = data[i].tgh_address;
+                    created = data[i].tgh_created_at;
+                    //icon = data[i].tty_icon;
                     //give the index of the nearest place where user's place
-                    var tempDif = Math.abs(e.latitude - lati ) + Math.abs(e.longitude - longti);
-                    if (dif > tempDif){
+                    var tempDif = Math.abs(e.latitude - lati) + Math.abs(e.longitude - longti);
+                    if (dif > tempDif) {
                         index = i;
                         dif = tempDif;
                     }
 
                 }
 
-                var radius = e.accuracy / 2;
+//                var radius = e.accuracy / 2;
+            var radius = 25;
 
                 //shoot the windows on the map
+<<<<<<< HEAD
             var showDesc = data[index].tgh_description;
             if (showDesc === undefined || showDesc === null)
             {
                 showDesc = "No info about this location"
             }
                 var print = "Name: " + data[index].thg_title + "<br>" + "Description: " + showDesc + "<br>" + "Address: " +  data[index].tgh_address + "<br>" + "Created: " +  data[index].tgh_created_at + "<br>";
+=======
+                var showDesc = data[index].tgh_description;
+                if (typeof (showDesc) === 'undefined') {
+                    showDesc = "No info"
+                }
+
+                var print = "Name: " + data[index].thg_title + "<br>" + "Description: " + data[index].tgh_description + "<br>" + "Address: " + data[index].tgh_address + "<br>" + "Created: " + data[index].tgh_created_at + "<br>";
+>>>>>>> origin/alex
                 //formHTML = "<form action=''><input type='text' value=" + print + "/> <input type='button' /> </form>";
-                formHTML= print;
+                formHTML = print;
                 L.marker(e.latlng
                     //                        , {
                     //                            icon: L.icon({
@@ -229,9 +272,17 @@ app.controller('mapViewController', ['$scope', 'authService', '$location', 'plac
                     //                        }
                 ).addTo(map);
                 //.bindPopup("Name: " + title + "<br>" + "Description" + discription + "<br>" + "Address " + address + "<br>" + "Created " + created).openPopup();
-                L.circle(e.latlng, radius).addTo(map);
 
-                //            console.log("second success");
+//            L.circle(e.latlng, 30).addTo(map);
+
+            L.circle(e.latlng, {
+                  radius: 30,
+                  fillColor: '#ff7800',
+                  color: '#f00',
+                  weight: 1,
+                  opacity: 1,
+                  fillOpacity: 1
+              }).addTo(map);              //            console.log("second success");
             })
             // do when the connection failed
             .fail(function () {
@@ -239,6 +290,7 @@ app.controller('mapViewController', ['$scope', 'authService', '$location', 'plac
             })
     };
 
+<<<<<<< HEAD
     //post the user  location to the backend
     var func = function(){
 
@@ -253,5 +305,41 @@ app.controller('mapViewController', ['$scope', 'authService', '$location', 'plac
 
     var currentUsr;
 
+=======
+
+    var rndCoordinates = function (from, to, fixed) {
+        return (Math.random() * (to - from) + from).toFixed(fixed) * 1;
+    };
+
+
+    function getImageURL() {
+        //    var bound = map.getBounds();
+        var lat = map.getCenter().lat;
+        var lon = map.getCenter().lng;
+        var width = 1280;
+        //map.getSize().x;
+        var height = 500;
+        //map.getSize().y;
+        var mapID = "mapbox.streets";
+        //               "bobinbc.npnfab3p";
+        var format = "jpg";
+
+        stringImageURL = "https://api.mapbox.com/v4/" + mapID + "/" + lon + "," + lat + "," + zoomLevel + "/" + width + "x" + height + "." + format + "?access_token=" + L.mapbox.accessToken;
+
+        getMaskedImage();
+    };
+
+    function getMaskedImage() {
+        for (var i = 0; i <= 100; i++) {
+            var geo = [rndCoordinates(51.3, 51.8, 3), rndCoordinates(0.3, -0.4, 3)];
+
+            var circle = L.circle(geo, 500, {
+                color: 'black',
+                fillColor: '#f00',
+                fillOpacity: 1
+            }).addTo(map);
+        }
+    };
+>>>>>>> origin/alex
 
 }]);

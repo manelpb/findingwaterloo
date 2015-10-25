@@ -94,44 +94,6 @@ app.controller('signupController', ['$scope', '$location', '$timeout', 'authServ
     };
 
 
-    /*
-    $scope.signUp = function () {
-
-
-
-        ModelShareService.setUserName($scope.registration.userName);
-
-
-
-        //save the registration data.
-        authService.setRegistrationData($scope.registration);
-
-
-
-
-        authService.registerUser().then(function(response){
-
-             $scope.savedSuccessfully = true;
-            $scope.message = response.data;
-
-            //if signup succeeds, then login directly.
-            if (response.status == 200)
-            {
-               var _loginData = {
-                   userName: $scope.registration.userName,
-                   password: $scope.registration.password
-               };
-
-               authService.userLogin(_loginData);
-            }
-
-            $location.path('/home');
-
-        });
-
-    }; */
-
-
      $scope.signUp = function () {
 
         authService.saveRegistration($scope.registration).then(function (response) {
@@ -149,15 +111,13 @@ app.controller('signupController', ['$scope', '$location', '$timeout', 'authServ
 
                authService.userLogin(_loginData);
 
-                 $location.path('/mapView');
+               $location.path('/mapView');
             }
             else
             {
                 $scope.ErrorMessage = response.statusText;
                 $scope.description = response.data.message;
             }
-
-
 
         });
     };
@@ -190,47 +150,7 @@ app.controller('signupController', ['$scope', '$location', '$timeout', 'authServ
              $scope.ErrorMessage = response.statusText;
         });
 
-
-
-
     };
-
-
-
 }]);
 
 
-/*
-app.directive('ngUnique', ['authService', function (authService) {
-        return {
-            restrict: 'A',
-            require: 'ngModel',
-            link: function (scope, element, attrs, ngModel) {
-                element.bind('blur', function (e) {
-                    if (!ngModel || !element.val()) return;
-                    var keyProperty = scope.$eval(attrs.wcUnique);
-                    var currentValue = element.val();
-                    authService.checkUserNameAvailability(currentValue)
-                        .then(function (unique) {
-                            //Ensure value that being checked hasn't changed
-                            //since the Ajax call was made
-                            if (currentValue == element.val()) {
-
-                                ngModel.$setValidity('unique', true);
-
-                            }
-                        }, function () {
-                            //Probably want a more robust way to handle an error
-                            //For this demo we'll set unique to true though
-                            //ngModel.$setValidity('unique', false);
-                            ngModel.$setValidity('unique', false);
-
-
-                        });
-                });
-            }
-        }
-    }]);
-
-
-*/
