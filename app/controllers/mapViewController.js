@@ -208,7 +208,12 @@ app.controller('mapViewController', ['$scope', 'authService', '$location', 'plac
                 var radius = e.accuracy / 2;
 
                 //shoot the windows on the map
-                var print = "Name: " + data[index].thg_title + "<br>" + "Description" + data[index].tgh_description + "<br>" + "Address " +  data[index].tgh_address + "<br>" + "Created " +  data[index].tgh_created_at + "<br>";
+            var showDesc = data[index].tgh_description;
+            if (typeof(showDesc) === 'undefined')
+            {
+                showDesc = "No info"}
+
+                var print = "Name: " + data[index].thg_title + "<br>" + "Description: " + data[index].tgh_description + "<br>" + "Address: " +  data[index].tgh_address + "<br>" + "Created: " +  data[index].tgh_created_at + "<br>";
                 //formHTML = "<form action=''><input type='text' value=" + print + "/> <input type='button' /> </form>";
                 formHTML= print;
                 L.marker(e.latlng
