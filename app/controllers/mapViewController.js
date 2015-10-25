@@ -4,15 +4,40 @@ var zoomLevel = 13;
     var formHTML = "<form action=''><input type='text' value='test' /> <input type='button' /> </form>";
 
 'use strict';
-app.controller('mapViewController', ['$scope', function ($scope) {
+app.controller('mapViewController', ['$scope', 'authService', '$location', 'placeInfoService', '$http', function ($scope, authService, $location, placeInfoService, $http) {
 
-    L.mapbox.accessToken = 'pk.eyJ1IjoiYm9iaW5iYyIsImEiOiJ2MkpyLTMwIn0.nay6_wKcFJpEC1y2Y6PDCw';
-    //Waterloo coordindates - [43.4822754, -80.5818245]
-    map = L.mapbox.map('map', 'mapbox.streets').setView([43.4822754, -80.5818245], zoomLevel);
-    getCurrentLocation();
-    var string = navigator.userAgent;
-    map.on('locationfound', onLocationFound);
+    $scope.init = function(){
+
+        if(!authService.authentication.isAuth){
+
+            $location.path("/login");
+
+
+        };
+
+
+       //example code of getting placeinfo
+       //getPlaceInfos();
+    };
+
+     //example code of getting placeinfo
+     /*var getPlaceInfos = function () {
+            placeInfoService.getAllPlacesInfo().then(function(response){
+                return response;
+            });
+
+        };*/
+
+
+         L.mapbox.accessToken = 'pk.eyJ1IjoiYm9iaW5iYyIsImEiOiJ2MkpyLTMwIn0.nay6_wKcFJpEC1y2Y6PDCw';
+        //Waterloo coordindates - [43.4822754, -80.5818245]
+        map = L.mapbox.map('map', 'mapbox.streets').setView([43.4822754, -80.5818245], zoomLevel);
+        getCurrentLocation();
+        var string = navigator.userAgent;
+        map.on('locationfound', onLocationFound);
         map.on('click', onMapClick);
+
+
 
 }]);
 

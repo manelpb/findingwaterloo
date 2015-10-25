@@ -1,45 +1,41 @@
 'use strict';
-app.factory('placeInfoService', ['$http', '$q', 'ngAuthSettings', function ($http, $q, localStorageService, ngAuthSettings) {
+app.factory('placeInfoService', ['$http', '$q', 'ngAuthSettings', function ($http, $q, ngAuthSettings) {
 
     var serviceBase = ngAuthSettings.apiServiceBaseUri;
     var placeInfoServiceFactory = {};
 
+    var _getAllPlacesInfo = function () {
 
-    var _authentication = {
-        isAuth: false,
-        userName: "",
-        useRefreshTokens: false
-    };
+               var deferred = $q.defer();
 
-    var _externalAuthData = {
-        provider: "",
-        userName: "",
-        externalAccessToken: ""
-    };
-
-    var _registrationData = {
-        userName: "",
-        password: "",
-        confirmPassword: "",
-        Email: "",
-        confirmEmail:""
-    }
-
-    //define loginResultEnum
-    //var LogResultEnum = Object.freeze({ "Succeed": 0, "WrongCredential": 1, "Locked": 2, "InActivate" :3 });
+              $http.get(serviceBase + 'api/things').success(function (response) {
 
 
+                deferred.resolve(response);
 
-    var getPlaceInfos = function (userName) {
+            }).error(function (err, status) {
+                deferred.reject(err);
+            });
 
-        return $http.get('http://172.31.11.163/findingwaterloo/index.php/api/things').then(function (response) {
-            return response;
+            return deferred.promise;
+        };
+
+
+    var _addNewTrackingPlaceInfo = function(trackingPlaceInfo){
+
+          return $http.post(serviceBase + 'api/user_track/walk', trackingPlaceInfo).then(function (response) {
+            console.log("keep tracking...");
+        },
+            function(error){
+            console.log("lost the point")
         });
+
     };
 
 
-
+    placeInfoServiceFactory.addTrackingPoint = _addNewTrackingPlaceInfo;
+    placeInfoServiceFactory.getAllPlacesInfo = _getAllPlacesInfo;
 
     return placeInfoServiceFactory;
-}]);
 
+}]);

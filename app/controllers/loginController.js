@@ -8,7 +8,7 @@ app.controller('loginController', ['$scope', '$location', 'authService', 'ngAuth
     };
 
     $scope.login_data = {
-        userName: "",
+        username: "",
         password: ""
     }
 
@@ -22,7 +22,7 @@ app.controller('loginController', ['$scope', '$location', 'authService', 'ngAuth
     $scope.login = function () {
 
 
-        if ($scope.login_data.userName == '' || $scope.login_data.password == '')
+        if ($scope.login_data.username == '' || $scope.login_data.password == '')
         {
             return false;
         }
@@ -30,7 +30,7 @@ app.controller('loginController', ['$scope', '$location', 'authService', 'ngAuth
         //authService.login($scope.loginData).then(function (response) {
         authService.userLogin($scope.login_data).then(function (response) {
 
-            $location.path('/home');
+            $location.path('/mapView');
         },
          function (err) {
              $scope.message = err.error_description;
