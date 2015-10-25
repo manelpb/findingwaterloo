@@ -108,3 +108,9 @@ table tbody tr:nth-child(even) {
 /*    left: 0;*/
 /*    width: 90%;*/
 }
+
+nav ul li {
+    color:  black;
+
+}
+

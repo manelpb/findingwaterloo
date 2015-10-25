@@ -149,7 +149,7 @@ app.controller('signupController', ['$scope', '$location', '$timeout', 'authServ
 
                authService.userLogin(_loginData);
 
-                 $location.path('/mapView');
+               $location.path('/mapView');
             }
             else
             {
