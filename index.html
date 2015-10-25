@@ -15,8 +15,6 @@
         <link rel="stylesheet" type="text/css" href="../../style/site.css">
 
 
-
-
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     </head>
 <body>
@@ -35,19 +33,13 @@
                 <div class="collapse navbar-collapse" data-collapse="!navbarExpanded" >
                     <ul class="nav navbar-nav navbar-right" >
                         <li data-ng-hide="!authentication.isAuth"><a href="#" style="color: black; font-weight: bold;">Welcome {{username}}</a></li>
-                        <!--<li><a href="#/pricing">Pricing</a></li>-->
-                        <!--<li data-ng-hide="!authentication.isAuth"><a href="#/team">My teams</a></li>
-                        <li data-ng-hide="!authentication.isAuth"><a href="#/refresh">Refresh Token</a></li>
-                        <li data-ng-hide="!authentication.isAuth"> <a href="#/profile">Profile</a></li>-->
-                        <li data-ng-hide="!authentication.isAuth"> <a href="#/start" style="color: black; font-weight: bold;">Start</a></li>
+
+
                         <li data-ng-hide="authentication.isAuth"> <a href="#/login" style="color: black; font-weight: bold;">Login</a></li>
                         <li data-ng-hide="!authentication.isAuth"><a href="#/profile" style="color: black; font-weight: bold;">Profile</a></li>
                         <li data-ng-hide="!authentication.isAuth"> <a href="#/mapView" style="color: black; font-weight: bold;">Map View</a></li>
                         <li data-ng-hide="!authentication.isAuth"><a href="" ng-click="logOut()"; style="color: black; font-weight: bold;">Logout</a></li>
 
-<!--                        <li> <a href="./app/views/mainView.html">Main View</a></li>-->
-                        <!--<li data-ng-hide="authentication.isAuth"> <a href="#/signup">Sign Up</a></li>-->
-                        <li ><a href="#/Contact" style="color: black; font-weight: bold;">Contact</a></li>
                     </ul>
                 </div>
             </div>
@@ -102,28 +94,6 @@
     <script src="app/services/authInterceptorService.js"></script>
     <script src="app/services/authService.js"></script>
     <script src="app/services/placeInfoService.js"></script>
-
-
-
-
-     <!-- Load controllers
- <script src="app/services/userProfileService.js"></script>
-
-    <script src="app/controllers/loginController.js?v=2"></script>
-    <script src="app/controllers/signupController.js?v=2"></script>
-
-    <script src="app/controllers/userProfileController.js"></script>
-    <script src="app/controllers/refreshController.js?v=2"></script>
-    <script src="app/controllers/tokensManagerController.js?v=2"></script>
-    <script src="app/controllers/associateController.js?v=2"></script>
-
-
-    <script src="app/controllers/activateController.js"></script>
-
-
-    <script src="app/controllers/resetPasswordController.js"></script>
-    <script src="app/controllers/setNewPasswordController.js"></script>
-    <script src="app/controllers/StatsResultControllor.js"></script>-->
 
 
 
