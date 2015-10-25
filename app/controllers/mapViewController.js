@@ -154,6 +154,14 @@ app.controller('mapViewController', ['$scope', 'authService', '$location', 'plac
                 };
                 //get the Json from backend server
                 function getJson(e) {
+                    var lati;
+                    var longti;
+                    var title;
+                    var discription;
+                    var address;
+                    var created;
+                    var icon;
+                    const INTERVAL = 0.000060;
                     var discoverApii = "http://172.31.11.163/findingwaterloo/index.php/api/things"
                     info = $.getJSON(discoverApii, function () {
                             //            console.log("success on access command");
@@ -163,8 +171,8 @@ app.controller('mapViewController', ['$scope', 'authService', '$location', 'plac
                             //console.log(data);
                             for (var i in data) {
                                 //output2 += "<li>" + data[i].thgh_geo.location.lat"</li>";
-                                lati = (data[i].tgh_geo.location.lat);
-                                longti = (data[i].tgh_geo.location.lng);
+                                lati = (data[i]. tgh_geo. location.lat);
+                                longti = (data[i]. tgh_geo. location.lng);
                                 /*if (lati+INTERVAL>e.latitude || lati-INTERVAL<lat)&&(longti+INTERVAAL>e.longitude || longti < e.longitude )
                                     {
 
