@@ -4,7 +4,7 @@ var zoomLevel = 13;
 var formHTML = "<form action=''><input type='text' value='test' /> <input type='button' /> </form>";
 
 'use strict';
-<<<<<<< HEAD
+
 app.controller('mapViewController', ['$scope', 'authService', '$location', 'placeInfoService', '$http', function ($scope, authService, $location, placeInfoService, $http) {
 
     $scope.init = function(){
@@ -40,7 +40,6 @@ app.controller('mapViewController', ['$scope', 'authService', '$location', 'plac
 
 
 
-=======
 app.controller('mapViewController', ['$scope', function ($scope) {
     L.mapbox.accessToken = 'pk.eyJ1IjoiYm9iaW5iYyIsImEiOiJ2MkpyLTMwIn0.nay6_wKcFJpEC1y2Y6PDCw';
     //Waterloo coordindates - [43.4822754, -80.5818245]
@@ -55,7 +54,7 @@ app.controller('mapViewController', ['$scope', function ($scope) {
     map.on('click', onMapClick);
     settingCityBoundary(null);
     maskingMap();
->>>>>>> origin/alex
+
 }]);
 
 //current City Coords are limited to waterloo (the cityCoords is not being populated)
