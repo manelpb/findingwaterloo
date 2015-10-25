@@ -28,7 +28,7 @@ app.controller('mapViewController', ['$scope', 'authService', '$location', 'plac
                     map.on('locationfound', onLocationFound);
                     map.on('click', onMapClick);
                     settingCityBoundary(null);
-                    maskingMap();
+//                    maskingMap();
 
 
                     //example code of getting placeinfo
@@ -133,16 +133,20 @@ app.controller('mapViewController', ['$scope', 'authService', '$location', 'plac
                     //    }
                 };
 
-                function displayPOI(POIObject) {
-                    L.marker(e.latlng, {
+                function    displayPOI(POIObject) {
+                    POIObject.latlng= {
+                        latitude: POIObject.latitude,
+                        longitude: POIObject.longitude
+                    };
+                    L.marker(POIObject.latlng, {
                             icon: L.icon({
-                                iconUrl: 'leaf-green.png',
+                                iconUrl: POIObject.imageURL,
                                 iconSize: [38, 95], // size of the icon
                                 iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
                                 popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
                             })
                         }).addTo(map)
-                        .bindPopup("You are within " + radius + " meters from this point").openPopup();
+                        .bindPopup(POIObject.name).openPopup();
                 };
 
                 function onLocationFound(e) {
