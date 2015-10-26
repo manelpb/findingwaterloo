@@ -205,7 +205,7 @@ app.controller('mapViewController', ['$scope', 'authService', '$location', 'plac
         var dif = 99999999999; //longla difference value give a impossible value more than any dif
         var index;
         const INTERVAL = 0.000060;
-        var discoverApii = "http://172.31.11.163/findingwaterloo/index.php/api/things"
+        var discoverApii = "http://localhost/findingwaterloo/index.php/api/things"
         info = $.getJSON(discoverApii, function () {
                 console.log("success on access command");
             })

@@ -83,7 +83,7 @@ app.config(function ($routeProvider) {
 
 });
 
-var serviceBase = 'http://172.31.11.163/findingwaterloo/index.php/';
+var serviceBase = 'http://localhost/findingwaterloo/index.php/'; 
     //'http://localhost:58077/';
 app.constant('ngAuthSettings', {
     apiServiceBaseUri: serviceBase,
