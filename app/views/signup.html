@@ -1,0 +1,40 @@
+<div  class="row" style="padding-top: 10%;" ng-controller="signupController">
+
+            <form name="signup_form" class="form-login" role="form">
+                <div style="background: white; padding: 10px;">
+                    <h2 class="form-login-heading">Sign up</h2>
+
+                    <!--<p style="font-size: 12px;color:limegreen;">*This selection indicates the role you will register as.</p>-->
+                    <input type="text" name="userName" class="form-control" placeholder="Username" data-ng-model="registration.username" ng-unique required autofocus>
+                    <span class="alert-danger" ng-show="signup_form.userName.$error.unique" style="font-size: 11px;">
+                        The user name is in use.
+                    </span>
+                    <input type="password" name="password" class="form-control" placeholder="Password" data-ng-model="registration.password" ng-minlength="6" required>
+                    <span class="alert-danger" ng-show="signup_form.password.$error.minlength" style="font-size: 11px;">
+                        Too short! At least 6 characters.
+                    </span>
+                    <input type="password" name="confirmPassword" class="form-control" placeholder="Confirm Password" data-ng-model="registration.confirmPassword" ng-minlength="6" required ng-blur="CheckPasswordMatch()">
+                    <span class="alert-danger" ng-show="signup_form.confirmPassword.$error.minlength" style="font-size: 11px;">
+                        Too short! At least 6 characters.
+                    </span>
+                    <span class="alert-danger" ng-show="passwordNotMatch" style="font-size: 11px;">
+                        The password inputs are different, please type again
+                    </span>
+                    <input type="email" name="email" class="form-control" placeholder="Email" data-ng-model="registration.Email" required ng-blur="CheckEmail()">
+                    <span class="alert-danger" ng-show="blankEmail" style="font-size: 11px;">
+                        The email is required.
+                    </span>
+                    <input type="email" name="confirmEmail" class="form-control" placeholder="Confirm Email" data-ng-model="registration.confirmEmail" ng-blur="CheckConfirmEmail()" required>
+                    <span class="alert-danger" ng-show="blankConfirmEmail" style="font-size: 11px;">
+                        The email is required.
+                    </span>
+                    <span class="alert-danger" ng-show="emailNotMatch" style="font-size: 11px;">
+                        The email address inputs are different, please type again
+                    </span>
+                    <!--<button class="btn btn-lg btn-info btn-block" type="submit" data-ng-click="signUp()">Submit</button>-->
+                    <button  class="btn btn-lg btn-info btn-block" data-ng-click="signUp()" ng-disabled="signup_form.$invalid">Submit</button>
+                    <span class="alert-danger" style="font-size: 11px;">{{ErrorMessage}}</span>
+                    <span class="alert-danger" style="font-size: 11px;">{{description}}</span>
+                </div>
+            </form>
+            </div>

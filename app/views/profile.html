@@ -1,0 +1,54 @@
+<div class="row" ng-init="init()" style="padding-top: 10%;">
+    <div class="col-md-12">
+        <div class="container">
+
+            <hr>
+                <!-- left column -->
+                <div class="col-md-3">
+                    <div class="text-center" style="background-color: silver;">
+                        <img ng-src={{img_url}} width="128px" height="128px" style="margin-top: 10px; ;border: black 1px solid;" class="avatar img-circle" alt="avatar">
+                        <span ng-hide=true>
+                            <h6>Want to change a photo?</h6>
+                            <input type="file" class="form-control">
+                        </span>
+                        <h2>{{username}}</h2>
+                        <hr>
+                        <h4>Level: {{title}}</h4>
+
+                        <div class="row">
+                            <!--<div class="col-sm-4">-->
+                        <p class="text-center"> <span class="glyphicon glyphicon-map-marker" aria-hidden="true"> Waterloo,Canada</span></p>
+                           <!-- </div>
+                            <div class="col-sm-8 ">
+                                <p>Waterloo, Canada</p>-->
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- edit form column -->
+                <div class="col-md-9 personal-info">
+                    <div class="alert alert-info alert-dismissable">
+                        <a class="panel-close close" data-dismiss="alert">×</a>
+                        <i class="fa fa-coffee"></i>
+                        This is an <strong>.alert</strong>. Use this to show important messages to the user.
+                    </div>
+                    <div>
+                        <ul class="list-group">
+                          <li class="list-group-item list-group-item-success">
+                              <span class="badge" style="color:white; background-color:#444;" ><b>14</b></span>
+                              <b>Places I found</b>
+                          </li>
+                          <li class="list-group-item list-group-item-info">
+                            <span class="badge" style="color:white; background-color:#444;"><b>1st</b></span>
+                              <b>Rank between my friends</b>
+                          </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        <hr>
+       </div>
+
+</div>
